@@ -5,7 +5,7 @@
 
 /**
  *
- * @author hugod
+ * @author hugod & charlesp
  */
 public class Menu extends javax.swing.JFrame {
 

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author hugod
+ * @author hugod & charlesp
  */
 
 public class ConnBDD {
