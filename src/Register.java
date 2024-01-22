@@ -70,7 +70,7 @@ public class Register extends javax.swing.JFrame {
         getContentPane().add(buttonValidate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 211, -1));
 
         haveAccount.setForeground(new java.awt.Color(255, 255, 255));
-        haveAccount.setText("Dont't anny account ?");
+        haveAccount.setText("Dont't have an account ?");
         haveAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 haveAccountMouseClicked(evt);

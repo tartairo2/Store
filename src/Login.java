@@ -1,6 +1,6 @@
 import java.awt.Color;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
+import javax.swing.JOptionPane;
+import java.sql.*;
 
 
 
@@ -65,7 +65,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(buttonValidate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 211, -1));
 
         notAccount.setForeground(new java.awt.Color(255, 255, 255));
-        notAccount.setText("Dont't anny account ?");
+        notAccount.setText("Dont't have an account ?");
         notAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 notAccountMouseClicked(evt);
@@ -130,7 +130,41 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_caseEmailActionPerformed
 
     private void buttonValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValidateActionPerformed
-        // TODO add your handling code here:
+        // Ajout du code de débogage
+    Connection connection = ConnBDD.getConnection();
+    if (connection != null) {
+        System.out.println("Connection successful");
+    } else {
+        System.out.println("Connection failed");
+        return;  // Quitte la méthode si la connexion échoue
+    }
+
+    // Le reste du code reste inchangé
+    if (checkEmptyFields()) {
+        JOptionPane.showMessageDialog(null, "Please ENTER your information", "Missing information", JOptionPane.ERROR_MESSAGE);
+    } else {
+        PreparedStatement ps;
+        ResultSet rs;
+        String email = caseEmail.getText();
+        String password = casePassword.getText();
+        String query = "SELECT * FROM users.users WHERE email=? AND password=?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Menu menu = new Menu();
+                menu.setVisible(true);
+                menu.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "No user with the provided username or password", "Incorrect", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Print the exception details for debugging
+        }
+    }          
     }//GEN-LAST:event_buttonValidateActionPerformed
 
     private void buttonValidateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonValidateMouseEntered
@@ -166,6 +200,10 @@ public class Login extends javax.swing.JFrame {
         
     }//GEN-LAST:event_buttonGoogleActionPerformed
     
+    private boolean checkEmptyFields(){
+        return (caseEmail.getText().equals("")||casePassword.getText().equals(""));
+
+    }
  
 
     public static void main(String args[]) {
