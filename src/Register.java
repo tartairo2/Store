@@ -174,35 +174,36 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_casePhoneActionPerformed
 
     private void buttonValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValidateActionPerformed
-    if (checkEmptyFields())
-        JOptionPane.showMessageDialog(null, "Please ENTER your information *", "Missing information", JOptionPane.ERROR_MESSAGE);
-    else {
-        String name = caseName.getText();
-        String email = caseEmail.getText();
-        String password = String.valueOf(casePassword.getPassword());
-        String password1 = String.valueOf(casePassword1.getPassword());
-        String phone = casePhone.getText();
-        if (matchingPasswords(password, password1)) {
-            JOptionPane.showMessageDialog(null, "The password doesn't match", "Missing information Password !", JOptionPane.ERROR_MESSAGE);
-        } else {
-            PreparedStatement ps;
-            String query = "INSERT INTO users.users(name, email, password, phone) values(?,?,?,?)"; // Corrected query
-            try {
-                ps = ConnBDD.getConnection().prepareStatement(query);
-                ps.setString(1, name);
-                ps.setString(2, email);
-                ps.setString(3, password);
-                ps.setString(4, phone); // Corrected index
-                if (ps.executeUpdate() != 0) {
-                    JOptionPane.showMessageDialog(null, "Welcome to Istore", "Validate !", JOptionPane.PLAIN_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Your account was not created. ERROR", "ERROR !", JOptionPane.ERROR_MESSAGE);
+        if (checkEmptyFields())
+            JOptionPane.showMessageDialog(null, "Veuillez SAISIR vos informations *", "Informations manquantes", JOptionPane.ERROR_MESSAGE);
+        else {
+            String name = caseName.getText();
+            String email = caseEmail.getText();
+            String password = String.valueOf(casePassword.getPassword());
+            String password1 = String.valueOf(casePassword1.getPassword());
+            String phone = casePhone.getText();
+            if (!matchingPasswords(password, password1)) { // Correction ici (ajout de "!")
+                JOptionPane.showMessageDialog(null, "Les mots de passe ne correspondent pas", "Erreur de mot de passe", JOptionPane.ERROR_MESSAGE);
+            } else {
+                PreparedStatement ps;
+                String query = "INSERT INTO users(name, email, password, phone) VALUES (?, ?, ?, ?)";
+                try {
+                    ps = ConnBDD.getConnection().prepareStatement(query);
+                    ps.setString(1, name);
+                    ps.setString(2, email);
+                    ps.setString(3, password);
+                    ps.setString(4, phone);
+                    if (ps.executeUpdate() != 0) {
+                        JOptionPane.showMessageDialog(null, "Bienvenue sur Istore", "Validation !", JOptionPane.PLAIN_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Votre compte n'a pas été créé. ERREUR", "ERREUR !", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Pas de connexion à la base de données", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "No connection to the DB", "Missing information Password !", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
         
     }//GEN-LAST:event_buttonValidateActionPerformed
 
@@ -292,6 +293,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
     }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonGoogle;
