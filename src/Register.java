@@ -37,6 +37,8 @@ public class Register extends javax.swing.JFrame {
         txtPassword1 = new javax.swing.JLabel();
         txtEmail1 = new javax.swing.JLabel();
         caseEmail = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         txtPhoneNumber = new javax.swing.JLabel();
         caseName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -52,7 +54,7 @@ public class Register extends javax.swing.JFrame {
                 casePhoneActionPerformed(evt);
             }
         });
-        getContentPane().add(casePhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 211, 30));
+        getContentPane().add(casePhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 211, 30));
 
         buttonValidate.setBackground(new java.awt.Color(108, 150, 241));
         buttonValidate.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,6 +152,15 @@ public class Register extends javax.swing.JFrame {
             }
         });
         getContentPane().add(caseEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 211, 30));
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("+33");
+        jPanel1.add(jLabel2);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 30, 30));
 
         txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPhoneNumber.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,6 +316,8 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField casePhone;
     private javax.swing.JLabel haveAccount;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel or;
     private javax.swing.JLabel txtEmail1;
     private javax.swing.JLabel txtLogin;
