@@ -175,7 +175,7 @@ public class Register extends javax.swing.JFrame {
 
     private void buttonValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValidateActionPerformed
         if (checkEmptyFields())
-            JOptionPane.showMessageDialog(null, "Veuillez SAISIR vos informations *", "Informations manquantes", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ENTER your information *", "Missing information", JOptionPane.ERROR_MESSAGE);
         else {
             String name = caseName.getText();
             String email = caseEmail.getText();
@@ -183,7 +183,7 @@ public class Register extends javax.swing.JFrame {
             String password1 = String.valueOf(casePassword1.getPassword());
             String phone = casePhone.getText();
             if (!matchingPasswords(password, password1)) { // Correction ici (ajout de "!")
-                JOptionPane.showMessageDialog(null, "Les mots de passe ne correspondent pas", "Erreur de mot de passe", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Password not mach", "ERROR password", JOptionPane.ERROR_MESSAGE);
             } else {
                 PreparedStatement ps;
                 String query = "INSERT INTO users(name, email, password, phone) VALUES (?, ?, ?, ?)";
@@ -194,13 +194,13 @@ public class Register extends javax.swing.JFrame {
                     ps.setString(3, password);
                     ps.setString(4, phone);
                     if (ps.executeUpdate() != 0) {
-                        JOptionPane.showMessageDialog(null, "Bienvenue sur Istore", "Validation !", JOptionPane.PLAIN_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Welcom from Istore", "Validation !", JOptionPane.PLAIN_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Votre compte n'a pas été créé. ERREUR", "ERREUR !", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Count not found. ERREUR", "ERREOR !", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Pas de connexion à la base de données", "Erreur de connexion", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No conection DB", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
