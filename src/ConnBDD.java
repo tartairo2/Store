@@ -17,7 +17,6 @@ public class ConnBDD {
             
             JOptionPane.showMessageDialog(null, "La connexion a échoué. Erreur : " + ex.getMessage());
         }
-        sq
         return connection;
     }
 }
