@@ -1,6 +1,9 @@
+import com.mysql.cj.jdbc.PreparedStatementWrapper;
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import java.sql.*;
 
 
 /**
@@ -33,7 +36,7 @@ public class Register extends javax.swing.JFrame {
         casePassword1 = new javax.swing.JPasswordField();
         txtPassword1 = new javax.swing.JLabel();
         txtEmail1 = new javax.swing.JLabel();
-        caseEmail1 = new javax.swing.JTextField();
+        caseEmail = new javax.swing.JTextField();
         txtPhoneNumber = new javax.swing.JLabel();
         caseName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -141,12 +144,12 @@ public class Register extends javax.swing.JFrame {
         txtEmail1.setText("Email");
         getContentPane().add(txtEmail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 38, -1));
 
-        caseEmail1.addActionListener(new java.awt.event.ActionListener() {
+        caseEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caseEmail1ActionPerformed(evt);
+                caseEmailActionPerformed(evt);
             }
         });
-        getContentPane().add(caseEmail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 211, 30));
+        getContentPane().add(caseEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 211, 30));
 
         txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPhoneNumber.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,9 +174,48 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_casePhoneActionPerformed
 
     private void buttonValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValidateActionPerformed
-        // TODO add your handling code here:
+    if (checkEmptyFields())
+        JOptionPane.showMessageDialog(null, "Please ENTER your information *", "Missing information", JOptionPane.ERROR_MESSAGE);
+    else {
+        String name = caseName.getText();
+        String email = caseEmail.getText();
+        String password = String.valueOf(casePassword.getPassword());
+        String password1 = String.valueOf(casePassword1.getPassword());
+        String phone = casePhone.getText();
+        if (matchingPasswords(password, password1)) {
+            JOptionPane.showMessageDialog(null, "The password doesn't match", "Missing information Password !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            PreparedStatement ps;
+            String query = "INSERT INTO users.users(name, email, password, phone) values(?,?,?,?)"; // Corrected query
+            try {
+                ps = ConnBDD.getConnection().prepareStatement(query);
+                ps.setString(1, name);
+                ps.setString(2, email);
+                ps.setString(3, password);
+                ps.setString(4, phone); // Corrected index
+                if (ps.executeUpdate() != 0) {
+                    JOptionPane.showMessageDialog(null, "Welcome to Istore", "Validate !", JOptionPane.PLAIN_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Your account was not created. ERROR", "ERROR !", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "No connection to the DB", "Missing information Password !", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+        
     }//GEN-LAST:event_buttonValidateActionPerformed
 
+    private boolean checkEmptyFields(){
+        return(caseName.getText().equals("")||caseEmail.getText().equals("")||String.valueOf(casePassword.getPassword()).equals("")
+                ||String.valueOf(casePassword1.getPassword()).equals("")|| casePhone.getText().equals(""));
+    }
+    
+    private boolean matchingPasswords(String p1, String p2){
+        return (p1.equals(p2));
+
+    }
+    
     private void buttonValidateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonValidateMouseEntered
         buttonValidate.setBackground(new Color(120,150,241));
     }//GEN-LAST:event_buttonValidateMouseEntered
@@ -211,9 +253,9 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_casePassword1ActionPerformed
 
-    private void caseEmail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseEmail1ActionPerformed
+    private void caseEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_caseEmail1ActionPerformed
+    }//GEN-LAST:event_caseEmailActionPerformed
 
     private void caseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseNameActionPerformed
         // TODO add your handling code here:
@@ -254,7 +296,7 @@ public class Register extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonGoogle;
     private javax.swing.JButton buttonValidate;
-    private javax.swing.JTextField caseEmail1;
+    private javax.swing.JTextField caseEmail;
     private javax.swing.JTextField caseName;
     private javax.swing.JPasswordField casePassword;
     private javax.swing.JPasswordField casePassword1;
