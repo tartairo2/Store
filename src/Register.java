@@ -1,8 +1,5 @@
-import com.mysql.cj.jdbc.PreparedStatementWrapper;
 import java.awt.Color;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
 import java.sql.*;
 
 
@@ -24,7 +21,6 @@ public class Register extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        casePhone = new javax.swing.JTextField();
         buttonValidate = new javax.swing.JButton();
         haveAccount = new javax.swing.JLabel();
         txtName = new javax.swing.JLabel();
@@ -37,9 +33,6 @@ public class Register extends javax.swing.JFrame {
         txtPassword1 = new javax.swing.JLabel();
         txtEmail1 = new javax.swing.JLabel();
         caseEmail = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtPhoneNumber = new javax.swing.JLabel();
         caseName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -48,13 +41,6 @@ public class Register extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 165, 136));
         setSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        casePhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                casePhoneActionPerformed(evt);
-            }
-        });
-        getContentPane().add(casePhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 211, 30));
 
         buttonValidate.setBackground(new java.awt.Color(108, 150, 241));
         buttonValidate.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,7 +58,7 @@ public class Register extends javax.swing.JFrame {
                 buttonValidateActionPerformed(evt);
             }
         });
-        getContentPane().add(buttonValidate, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 211, -1));
+        getContentPane().add(buttonValidate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 211, -1));
 
         haveAccount.setForeground(new java.awt.Color(255, 255, 255));
         haveAccount.setText("Dont't have an account ?");
@@ -81,7 +67,7 @@ public class Register extends javax.swing.JFrame {
                 haveAccountMouseClicked(evt);
             }
         });
-        getContentPane().add(haveAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 137, -1));
+        getContentPane().add(haveAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 137, -1));
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtName.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,7 +94,7 @@ public class Register extends javax.swing.JFrame {
 
         or.setForeground(new java.awt.Color(255, 255, 255));
         or.setText("------------------------or-------------------------");
-        getContentPane().add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 260, -1));
+        getContentPane().add(or, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 260, -1));
 
         buttonGoogle.setBackground(new java.awt.Color(66, 133, 244));
         buttonGoogle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -127,7 +113,7 @@ public class Register extends javax.swing.JFrame {
                 buttonGoogleActionPerformed(evt);
             }
         });
-        getContentPane().add(buttonGoogle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 560, 211, -1));
+        getContentPane().add(buttonGoogle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 211, -1));
 
         casePassword1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,20 +139,6 @@ public class Register extends javax.swing.JFrame {
         });
         getContentPane().add(caseEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 211, 30));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("+33");
-        jPanel1.add(jLabel2);
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 30, 30));
-
-        txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPhoneNumber.setForeground(new java.awt.Color(255, 255, 255));
-        txtPhoneNumber.setText("Phone number");
-        getContentPane().add(txtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
-
         caseName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caseNameActionPerformed(evt);
@@ -180,10 +152,6 @@ public class Register extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void casePhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casePhoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_casePhoneActionPerformed
-
     private void buttonValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValidateActionPerformed
         if (checkEmptyFields())
             JOptionPane.showMessageDialog(null, "ENTER your information *", "Missing information", JOptionPane.ERROR_MESSAGE);
@@ -192,7 +160,6 @@ public class Register extends javax.swing.JFrame {
             String email = caseEmail.getText();
             String password = String.valueOf(casePassword.getPassword());
             String password1 = String.valueOf(casePassword1.getPassword());
-            String phone = casePhone.getText();
             if (!matchingPasswords(password, password1)) { // Correction ici (ajout de "!")
                 JOptionPane.showMessageDialog(null, "Password not mach", "ERROR password", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -203,7 +170,6 @@ public class Register extends javax.swing.JFrame {
                     ps.setString(1, name);
                     ps.setString(2, email);
                     ps.setString(3, password);
-                    ps.setString(4, phone);
                     if (ps.executeUpdate() != 0) {
                         JOptionPane.showMessageDialog(null, "Welcom from Istore", "Validation !", JOptionPane.PLAIN_MESSAGE);
                     } else {
@@ -220,7 +186,7 @@ public class Register extends javax.swing.JFrame {
 
     private boolean checkEmptyFields(){
         return(caseName.getText().equals("")||caseEmail.getText().equals("")||String.valueOf(casePassword.getPassword()).equals("")
-                ||String.valueOf(casePassword1.getPassword()).equals("")|| casePhone.getText().equals(""));
+                ||String.valueOf(casePassword1.getPassword()).equals(""));
     }
     
     private boolean matchingPasswords(String p1, String p2){
@@ -313,17 +279,13 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField caseName;
     private javax.swing.JPasswordField casePassword;
     private javax.swing.JPasswordField casePassword1;
-    private javax.swing.JTextField casePhone;
     private javax.swing.JLabel haveAccount;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel or;
     private javax.swing.JLabel txtEmail1;
     private javax.swing.JLabel txtLogin;
     private javax.swing.JLabel txtName;
     private javax.swing.JLabel txtPassword;
     private javax.swing.JLabel txtPassword1;
-    private javax.swing.JLabel txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
 }
