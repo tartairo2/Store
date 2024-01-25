@@ -1,6 +1,7 @@
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.security.MessageDigest;
 
 
 /**
@@ -164,26 +165,59 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Password not mach", "ERROR password", JOptionPane.ERROR_MESSAGE);
             } else {
                 PreparedStatement ps;
-                String query = "INSERT INTO users(name, email, password, phone) VALUES (?, ?, ?, ?)";
+                String query = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
                 try {
+                    // Hashing the password using SHA-256
+                    String hashedPassword = hashPassword(password);
+
                     ps = ConnBDD.getConnection().prepareStatement(query);
                     ps.setString(1, name);
                     ps.setString(2, email);
-                    ps.setString(3, password);
+                    ps.setString(3, hashedPassword);
                     if (ps.executeUpdate() != 0) {
-                        JOptionPane.showMessageDialog(null, "Welcom from Istore", "Validation !", JOptionPane.PLAIN_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Welcome to Istore", "Validation!", JOptionPane.PLAIN_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Count not found. ERREUR", "ERREOR !", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Could not create account. ERROR", "ERROR!", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "No conection DB", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No database connection", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
         }
         
     }//GEN-LAST:event_buttonValidateActionPerformed
 
+    private String hashPassword(String password) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] encodedHash = digest.digest(password.getBytes());
+        return bytesToHex(encodedHash);
+    }
+
+    private String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private boolean checkEmptyFields(){
         return(caseName.getText().equals("")||caseEmail.getText().equals("")||String.valueOf(casePassword.getPassword()).equals("")
                 ||String.valueOf(casePassword1.getPassword()).equals(""));
