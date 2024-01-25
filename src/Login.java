@@ -1,6 +1,7 @@
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.security.MessageDigest;
 
 
 
@@ -149,9 +150,13 @@ public class Login extends javax.swing.JFrame {
         String password = casePassword.getText();
         String query = "SELECT * FROM users.users WHERE email=? AND password=?";
         try {
+            // Hashing the entered password for comparison
+            String hashedPassword = hashPassword(password);
+
             ps = connection.prepareStatement(query);
             ps.setString(1, email);
-            ps.setString(2, password);
+            ps.setString(2, hashedPassword);
+
             rs = ps.executeQuery();
             if (rs.next()) {
                 Menu menu = new Menu();
@@ -159,7 +164,7 @@ public class Login extends javax.swing.JFrame {
                 menu.setLocationRelativeTo(null);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "No user with the provided username or password", "Incorrect", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No user with the provided email or password", "Incorrect", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             ex.printStackTrace(); // Print the exception details for debugging
@@ -167,6 +172,35 @@ public class Login extends javax.swing.JFrame {
     }          
     }//GEN-LAST:event_buttonValidateActionPerformed
 
+    private String hashPassword(String password) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] encodedHash = digest.digest(password.getBytes());
+        return bytesToHex(encodedHash);
+    }
+
+    private String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private void buttonValidateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonValidateMouseEntered
         buttonValidate.setBackground(new Color(120,150,241));
     }//GEN-LAST:event_buttonValidateMouseEntered
