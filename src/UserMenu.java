@@ -27,6 +27,7 @@ public class UserMenu extends javax.swing.JFrame {
         ButtonUsername = new javax.swing.JButton();
         ButtonUsername1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        supprimerCompte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +58,13 @@ public class UserMenu extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Username");
 
+        supprimerCompte.setText("Supprimer compte");
+        supprimerCompte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supprimerCompteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -72,8 +80,10 @@ public class UserMenu extends javax.swing.JFrame {
                         .addGap(13, 13, 13)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonUsername)
-                    .addComponent(ButtonUsername1))
-                .addContainerGap(500, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(supprimerCompte)
+                        .addComponent(ButtonUsername1)))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,7 +99,9 @@ public class UserMenu extends javax.swing.JFrame {
                         .addGap(101, 101, 101)
                         .addComponent(ButtonUsername)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonUsername1)))
+                        .addComponent(ButtonUsername1)
+                        .addGap(28, 28, 28)
+                        .addComponent(supprimerCompte)))
                 .addGap(0, 231, Short.MAX_VALUE))
         );
 
@@ -120,6 +132,10 @@ public class UserMenu extends javax.swing.JFrame {
     private void ButtonUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonUsernameActionPerformed
+
+    private void supprimerCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerCompteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supprimerCompteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,5 +182,6 @@ public class UserMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel rubanImage;
+    private javax.swing.JButton supprimerCompte;
     // End of variables declaration//GEN-END:variables
 }
