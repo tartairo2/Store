@@ -159,7 +159,7 @@ public class Login extends javax.swing.JFrame {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                Menu menu = new Menu();
+                UserMenu menu = new UserMenu();
                 menu.setVisible(true);
                 menu.setLocationRelativeTo(null);
                 this.dispose();
